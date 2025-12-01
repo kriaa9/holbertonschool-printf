@@ -1,20 +1,33 @@
-# 0x11. C - printf
+# my_printf — Simple custom printf in C
 
-## 📖 Description
+A minimal implementation of a `printf`-like function in C.  
+Instead of using the standard library’s `printf`, this project provides a function named `_printf` that supports printing characters, strings, integers, and literal percent signs via a format string.
 
-This project is a custom implementation of the C standard library function `printf`. The function produces formatted output and writes it to stdout (standard output stream).
+## What it does
 
-## 🎯 Project Objectives
+- Parses a format string (like `"Hello %s, you are %d years old\n"`)  
+- Replaces format specifiers with provided values (string, integer, char)  
+- Outputs the final result character by character to standard output  
+- Returns the count of printed characters (just like standard `printf`)  
 
-- Understand variadic functions in C
-- Learn how `printf` works internally
-- Practice group collaboration and pair programming
-- Master formatted output conversion
-- Handle different data types (char, string, int)
+This project helps to learn how formatting, variable arguments, and low-level output work under the hood in C.
 
-## ⚙️ Compilation
+## Project files and their roles
 
-All files are compiled on **Ubuntu 20.04 LTS** using:
+| File | Purpose |
+|------|---------|
+| `main.h` | Declares all functions used across the project; allows all source files to share common definitions. |
+| `_printf.c` | Core of the project: defines `_printf(const char *format, ...)`. Parses the format string, detects placeholders, and directs printing tasks. |
+| `_putchar.c` | Low-level helper: writes a single character to standard output. All printing operations go through this. |
+| `print_char.c` | Handles the `%c` specifier: prints a single character argument. |
+| `print_string.c` | Handles the `%s` specifier: prints a C-string (i.e. a `char *`) by outputting each character in turn. |
+| `print_int.c` | Handles integer placeholders (`%d` / `%i`): converts an integer to its decimal string representation (handling negative values), then prints it. |
+| `print_percent.c` | Handles `%%`: prints a literal `%`. |
+| (optional) Documentation or manual files | Provide usage instructions or explain design decisions — not required for compilation but useful to understand how the project works. |
 
-```bash
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-format *.c
+## How it works (in simple steps)
+
+1. You write something like:
+
+   ```c
+   _printf("Hello %s! You have %d new messages.\n", username, msg_count);
